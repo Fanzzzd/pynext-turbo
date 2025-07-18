@@ -7,7 +7,10 @@ import type {
 } from 'axios';
 
 import type { Auth } from '../core/auth';
-import type { Client as CoreClient, Config as CoreConfig } from '../core/types';
+import type {
+  Client as CoreClient,
+  Config as CoreConfig,
+} from '../core/types';
 
 export interface Config<T extends ClientOptions = ClientOptions>
   extends Omit<CreateAxiosDefaults, 'auth' | 'baseURL' | 'headers' | 'method'>,
@@ -104,7 +107,7 @@ type MethodFn = <
   TError = unknown,
   ThrowOnError extends boolean = false,
 >(
-  options: Omit<RequestOptions<ThrowOnError>, 'method'>
+  options: Omit<RequestOptions<ThrowOnError>, 'method'>,
 ) => RequestResult<TData, TError, ThrowOnError>;
 
 type RequestFn = <
@@ -113,7 +116,7 @@ type RequestFn = <
   ThrowOnError extends boolean = false,
 >(
   options: Omit<RequestOptions<ThrowOnError>, 'method'> &
-    Pick<Required<RequestOptions<ThrowOnError>>, 'method'>
+    Pick<Required<RequestOptions<ThrowOnError>>, 'method'>,
 ) => RequestResult<TData, TError, ThrowOnError>;
 
 type BuildUrlFn = <
@@ -124,7 +127,7 @@ type BuildUrlFn = <
     url: string;
   },
 >(
-  options: Pick<TData, 'url'> & Omit<Options<TData>, 'axios'>
+  options: Pick<TData, 'url'> & Omit<Options<TData>, 'axios'>,
 ) => string;
 
 export type Client = CoreClient<RequestFn, Config, MethodFn, BuildUrlFn> & {
@@ -140,7 +143,7 @@ export type Client = CoreClient<RequestFn, Config, MethodFn, BuildUrlFn> & {
  * to ensure your client always has the correct values.
  */
 export type CreateClientConfig<T extends ClientOptions = ClientOptions> = (
-  override?: Config<ClientOptions & T>
+  override?: Config<ClientOptions & T>,
 ) => Config<Required<ClientOptions> & T>;
 
 export interface TDataShape {

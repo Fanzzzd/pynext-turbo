@@ -111,9 +111,18 @@ importers:
         specifier: ^19.1.0
         version: 19.1.0
     devDependencies:
+      '@pynext-turbo/eslint-config-custom':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@types/react':
         specifier: ^19
         version: 19.1.8
+      eslint:
+        specifier: ^9.17.0
+        version: 9.31.0(jiti@2.4.2)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.8.3
 
   packages/eslint-config-custom:
     devDependencies:
@@ -132,9 +141,18 @@ importers:
         specifier: ^19.1.0
         version: 19.1.0
     devDependencies:
+      '@pynext-turbo/eslint-config-custom':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@types/react':
         specifier: ^19
         version: 19.1.8
+      eslint:
+        specifier: ^9.17.0
+        version: 9.31.0(jiti@2.4.2)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.8.3
 
 packages:
 

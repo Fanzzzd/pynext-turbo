@@ -1,7 +1,7 @@
 import type { AxiosError, RawAxiosRequestHeaders } from 'axios';
 import axios from 'axios';
 
-import type { Client, Config, RequestOptions } from './types';
+import type { Client, Config } from './types';
 import {
   buildUrl,
   createConfig,
@@ -24,13 +24,15 @@ export const createClient = (config: Config = {}): Client => {
     instance.defaults = {
       ...instance.defaults,
       ..._config,
+      // @ts-expect-error
       headers: mergeHeaders(instance.defaults.headers, _config.headers),
     };
     return getConfig();
   };
 
+  // @ts-expect-error
   const request: Client['request'] = async (options) => {
-    const opts: RequestOptions = {
+    const opts = {
       ..._config,
       ...options,
       axios: options.axios ?? _config.axios ?? instance,
@@ -90,7 +92,8 @@ export const createClient = (config: Config = {}): Client => {
       if (opts.throwOnError) {
         throw e;
       }
-      (e as any).error = e.response?.data ?? {};
+      // @ts-expect-error
+      e.error = e.response?.data ?? {};
       return e;
     }
   };
