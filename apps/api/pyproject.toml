@@ -1,0 +1,33 @@
+[project]
+name = "pynext-turbo-api"
+version = "0.1.0"
+description = "The FastAPI backend for the pynext-turbo project."
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "sqlmodel",
+    "alembic",
+    "psycopg2-binary",
+    "python-dotenv",
+    "pydantic-settings>=2.10.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "httpx",
+    "ruff"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.12.4",
+]

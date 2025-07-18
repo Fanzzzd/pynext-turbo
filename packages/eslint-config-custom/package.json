@@ -1,0 +1,16 @@
+{
+  "name": "@pynext-turbo/eslint-config-custom",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.mjs"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "eslint-config-next": "15.4.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

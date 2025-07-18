@@ -1,0 +1,36 @@
+{
+  "name": "@pynext-turbo/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@pynext-turbo/api-client": "workspace:*",
+    "@pynext-turbo/ui": "workspace:*",
+    "@t3-oss/env-nextjs": "^0.13.8",
+    "@tanstack/react-query": "^5.62.9",
+    "@tanstack/react-query-devtools": "^5.62.9",
+    "axios": "^1.7.9",
+    "next": "15.4.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "zod": "^4.0.5"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@pynext-turbo/eslint-config-custom": "workspace:*",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
