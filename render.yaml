@@ -1,0 +1,32 @@
+# Blueprint for deploying Pynext-Turbo on Render.com
+# 1. Create a "Blueprint" instance in your Render dashboard.
+# 2. Connect the Git repository.
+# 3. Render will automatically detect this file and set up the services.
+# 4. Manually set the `CORS_ORIGINS` environment variable on the `api` service
+#    to your Vercel deployment URL (e.g., '["https://your-app.vercel.app"]').
+
+services:
+  # PostgreSQL Database
+  - type: pgs
+    name: pynext-turbo-db
+    postgresMajorVersion: 15
+
+  # FastAPI Backend Service
+  - type: web
+    name: pynext-turbo-api
+    runtime: docker
+    dockerfilePath: ./apps/api/Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: DATABASE_URL
+        fromService:
+          type: pgs
+          name: pynext-turbo-db
+          property: connectionString
+      - key: CORS_ORIGINS
+        value: '["http://localhost:3000"]' # IMPORTANT: Update this after frontend is deployed
+      - key: DEBUG
+        value: false
+    autoDeploy: true # Automatically deploy on push to the main branch
+    # Run migrations before starting the server
+    preDeployCommand: "uv run alembic upgrade head"

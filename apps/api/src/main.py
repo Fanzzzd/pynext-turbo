@@ -8,8 +8,6 @@ from .models import Hero, HeroCreate, HeroRead, HeroUpdate
 
 app = FastAPI(title="Pynext-Turbo API", version="0.1.0")
 
-print("settings.CORS_ORIGINS", settings.CORS_ORIGINS)
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,

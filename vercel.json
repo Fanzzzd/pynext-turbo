@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "develop": true
+    }
+  },
+  "framework": "nextjs",
+  "rootDirectory": "apps/web",
+  "installCommand": "cd ../../ && pnpm install",
+  "buildCommand": "pnpm build",
+  "ignoreCommand": "cd ../../ && pnpm dlx turbo-ignore"
+}

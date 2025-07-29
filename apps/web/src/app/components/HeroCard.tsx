@@ -6,6 +6,8 @@ import {
   deleteHeroHeroesHeroIdDelete,
 } from '@pynext-turbo/api-client';
 import { Button } from '@pynext-turbo/ui';
+import type { AxiosError } from 'axios';
+import { useApiClient } from '@pynext-turbo/api-client/provider';
 
 type HeroCardProps = {
   hero: HeroRead;
@@ -13,10 +15,11 @@ type HeroCardProps = {
 
 export function HeroCard({ hero }: HeroCardProps) {
   const queryClient = useQueryClient();
+  const client = useApiClient();
 
   const { mutate: deleteHero, isPending } = useMutation({
     mutationFn: (heroId: number) =>
-      deleteHeroHeroesHeroIdDelete({ path: { hero_id: heroId } }),
+      deleteHeroHeroesHeroIdDelete({ path: { hero_id: heroId }, client }),
     onMutate: async (heroId) => {
       await queryClient.cancelQueries({ queryKey: ['heroes'] });
       const previousHeroes = queryClient.getQueryData<HeroRead[]>(['heroes']);
@@ -24,9 +27,13 @@ export function HeroCard({ hero }: HeroCardProps) {
       queryClient.setQueryData(['heroes'], optimisticHeroes);
       return { previousHeroes };
     },
-    onError: (err, heroId, context) => {
+    onError: (error: AxiosError, heroId, context) => {
       queryClient.setQueryData(['heroes'], context?.previousHeroes);
-      alert(`Failed to delete hero: ${err.message}`);
+      const errorMsg =
+        (error.response?.data as any)?.detail ||
+        error.message ||
+        'An unknown error occurred';
+      alert(`Failed to delete hero: ${errorMsg}`);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['heroes'] });

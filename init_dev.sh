@@ -80,11 +80,9 @@ else
       source apps/api/.env
       set +a
 
-      # Since password changed, reset database
-      echo "🔄 Password changed, resetting database container and volume..."
-      docker stop "$DB_CONTAINER_NAME" || true
-      docker rm "$DB_CONTAINER_NAME" || true
-      docker volume rm "pynext_turbo_postgres_data" || true
+      # Since password changed, resetting database volume to ensure a fresh start
+      echo "🔄 Password changed, resetting database volume..."
+      docker volume rm "pynext_turbo_postgres_data" > /dev/null 2>&1 || true
     fi
   fi
 
@@ -131,7 +129,7 @@ echo "📦 Installing Node.js dependencies..."
 pnpm install
 
 echo "🐍 Installing Python dependencies..."
-(cd apps/api && uv sync)
+pnpm postinstall
 
 MIGRATIONS_DIR="apps/api/alembic/versions"
 mkdir -p "$MIGRATIONS_DIR"

@@ -12,107 +12,48 @@ A modern, type-safe, full-stack monorepo template using Next.js, FastAPI, and Po
 - 🛠️ **Superior Developer Experience**: Pre-configured with Prettier, ESLint, VSCode settings, and a streamlined command-line interface.
 - 🐳 **Dockerized Services**: Consistent development and production environments with Docker Compose.
 
+## ⚡ Getting Started
+
+This project is designed for a seamless developer experience.
+
+1.  **Prerequisites**: Ensure you have [Docker](https://www.docker.com/), [pnpm](https://pnpm.io/installation), and [uv](https://github.com/astral-sh/uv) (`pip install uv`) installed.
+
+2.  **Clone & Setup**:
+
+    ```bash
+    git clone https://github.com/your-repo/pynext-turbo.git
+    cd pynext-turbo
+    ./init_dev.sh
+    ```
+
+    The setup script handles everything: installs dependencies, sets up `.env` files, starts the database, runs migrations, and generates the API client.
+
+3.  **Start Developing**:
+    ```bash
+    pnpm dev
+    ```
+
+## 📚 Documentation
+
+For more details on the project structure, development workflow, and deployment, please refer to our comprehensive documentation:
+
+- **[💻 Development Guide](./docs/development.md)**: Learn about database migrations, API client generation, and the project structure.
+- **[🚀 Deployment Guide](./docs/deployment.md)**: A complete guide to deploying your application.
+
 ## 📁 Project Structure
 
 ```filetree
 .
 ├── apps
-│   ├── api/          # FastAPI backend (with its own .env.example)
-│   └── web/          # Next.js frontend (with its own .env.example)
+│   ├── api/          # FastAPI backend
+│   └── web/          # Next.js frontend
+├── docs/             # Project documentation
 ├── packages
 │   ├── api-client/   # Auto-generated API client
 │   ├── eslint-config-custom/
 │   ├── tsconfig/
-│   └── ui/           # Shared React components (e.g., Button)
+│   └── ui/           # Shared React components
 ├── init_dev.sh       # Development environment setup script
 ├── docker-compose.yml
 └── turbo.json
 ```
-
-## ⚡ Getting Started
-
-1.  **Prerequisites**: Ensure you have [Docker](https://www.docker.com/), [pnpm](https://pnpm.io/installation), and [uv](https://github.com/astral-sh/uv) (`pip install uv`) installed.
-2.  **Clone the repository**:
-    ```bash
-    git clone https://github.com/your-repo/pynext-turbo.git
-    cd pynext-turbo
-    ```
-3.  **Run the setup script**: This will install dependencies, set up your `.env` files in `apps/api` and `apps/web`, start the database, run migrations, and generate the initial API client.
-    ```bash
-    ./init_dev.sh
-    ```
-4.  **Start the development servers**:
-    ```bash
-    pnpm dev
-    ```
-    This will start:
-    - Next.js frontend on `http://localhost:3000`
-    - FastAPI backend on `http://localhost:8000`
-    - A `nodemon` watcher that automatically regenerates the API client on backend changes.
-
-## 👩‍💻 Development Workflow
-
-Pynext-Turbo is designed for a seamless development experience where frontend types stay in sync with your backend API automatically.
-
-### The "tRPC-like" Magic
-
-When you run `pnpm dev`, a watcher (`nodemon`) monitors your Python files in `apps/api/src/`. Any change to these files triggers two actions:
-
-1.  **Schema Export**: It regenerates `apps/api/openapi.json` from your FastAPI application.
-2.  **Client Generation**: It uses the new schema to regenerate the TypeScript client in `packages/api-client/`.
-
-This means you can change your FastAPI models or endpoints, and your frontend code will immediately have access to the updated, type-safe client.
-
-### Example: Adding a new API endpoint
-
-1.  **Modify the API**: Open `apps/api/src/main.py` and add a new endpoint.
-2.  **Watch it regenerate**: `nodemon` will detect the change and regenerate the client. You'll see output in your terminal.
-3.  **Use it on the Frontend**: Open a React component in `apps/web/src/` and import the new function from `@pynext-turbo/api-client`. TypeScript will provide autocompletion and type checking.
-
-Example usage in a React component:
-
-```tsx
-import { useQuery } from '@tanstack/react-query';
-import { yourNewEndpointFunction } from '@pynext-turbo/api-client';
-
-function MyComponent() {
-  const { data, isLoading } = useQuery({
-    queryKey: ['newData'],
-    queryFn: () =>
-      yourNewEndpointFunction({
-        /* parameters here */
-      }),
-  });
-  // ...
-}
-```
-
-### Database Migrations
-
-This template uses [Alembic](https://alembic.sqlalchemy.org/) for database migrations.
-
-1.  **Change your models**: Modify your SQLModel classes in `apps/api/src/models.py`.
-2.  **Generate a migration script**:
-    ```bash
-    # Provide a descriptive message for the migration
-    pnpm db:generate "add new field to hero model"
-    ```
-    This creates a new revision file in `apps/api/alembic/versions/`.
-3.  **Apply the migration**:
-    ```bash
-    pnpm db:migrate
-    ```
-
-### ⚠️ Auto-generated Files: Do Not Edit Manually
-
-The following files and directories are generated automatically. Any manual changes will be overwritten.
-
-- **`apps/api/openapi.json`**: Generated from the FastAPI app.
-- **`packages/api-client/src/requests/`**: The entire contents of this directory are generated by `openapi-ts`. This includes:
-  - `client.gen.ts`
-  - `sdk.gen.ts`
-  - `types.gen.ts`
-  - `index.ts`
-  - `client/` and `core/` subdirectories.
-
-The only file you might touch in `packages/api-client/src/` is `provider.tsx` if you need to adjust the React Query client configuration.

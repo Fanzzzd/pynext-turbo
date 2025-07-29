@@ -1,9 +1,21 @@
 'use client';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import React, { useEffect, useState } from 'react';
-import { client } from './requests/client.gen';
+import React, { createContext, useContext, useMemo } from 'react';
+import {
+  createClient,
+  type Client,
+  createConfig,
+} from './requests/client';
+
+const ApiClientContext = createContext<Client | null>(null);
+
+export function useApiClient() {
+  const client = useContext(ApiClientContext);
+  if (client === null) {
+    throw new Error('useApiClient must be used within an ApiProvider');
+  }
+  return client;
+}
 
 export const ApiProvider = ({
   children,
@@ -12,31 +24,20 @@ export const ApiProvider = ({
   children: React.ReactNode;
   baseURL: string;
 }) => {
-  const [queryClient] = useState(
+  const client = useMemo(
     () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 60 * 1000,
-            retry: 1,
-          },
-        },
-      })
+      createClient(
+        createConfig({
+          baseURL: baseURL,
+          throwOnError: true,
+        }),
+      ),
+    [baseURL],
   );
 
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    client.setConfig({
-      baseURL: baseURL,
-    });
-    setIsMounted(true);
-  }, [baseURL]);
-
   return (
-    <QueryClientProvider client={queryClient}>
+    <ApiClientContext.Provider value={client}>
       {children}
-      {isMounted && <ReactQueryDevtools initialIsOpen={false} />}
-    </QueryClientProvider>
+    </ApiClientContext.Provider>
   );
 };

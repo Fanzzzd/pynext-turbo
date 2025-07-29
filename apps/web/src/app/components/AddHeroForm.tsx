@@ -7,33 +7,41 @@ import {
   type HeroCreate,
 } from '@pynext-turbo/api-client';
 import { Button } from '@pynext-turbo/ui';
+import type { AxiosError } from 'axios';
+import { useApiClient } from '@pynext-turbo/api-client/provider';
 
 export function AddHeroForm() {
-  const queryClient = useQueryClient();
   const [name, setName] = useState('');
   const [secretName, setSecretName] = useState('');
   const [age, setAge] = useState('');
+  const queryClient = useQueryClient();
+  const client = useApiClient();
 
-  const { mutate: createHero, isPending } = useMutation({
-    mutationFn: (heroData: HeroCreate) =>
-      createHeroHeroesPost({ body: heroData }),
+  const { mutate: addHero, isPending } = useMutation({
+    mutationFn: (newHero: HeroCreate) =>
+      createHeroHeroesPost({ body: newHero, client }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['heroes'] });
       setName('');
       setSecretName('');
       setAge('');
+      alert('Hero created successfully!');
     },
-    onError: (error) => {
-      alert(`Failed to create hero: ${error.message}`);
+    onError: (error: AxiosError) => {
+      const errorMsg =
+        (error.response?.data as any)?.detail ||
+        error.message ||
+        'An unknown error occurred';
+      alert(`Failed to create hero: ${errorMsg}`);
     },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createHero({
+    addHero({
       name,
       secret_name: secretName,
-      age: age ? parseInt(age, 10) : null,
+      age: age ? parseInt(age, 10) : undefined,
     });
   };
 

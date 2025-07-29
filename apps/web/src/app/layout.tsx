@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ApiProvider } from '@pynext-turbo/api-client/provider';
+import { Providers } from './providers';
 import { env } from '@/env.mjs';
 
 const geistSans = Geist({
@@ -29,7 +30,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ApiProvider baseURL={env.NEXT_PUBLIC_API_URL}>{children}</ApiProvider>
+        <Providers>
+          <ApiProvider baseURL={env.NEXT_PUBLIC_API_URL}>
+            {children}
+          </ApiProvider>
+        </Providers>
       </body>
     </html>
   );
