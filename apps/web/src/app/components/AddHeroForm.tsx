@@ -7,7 +7,6 @@ import {
   type HeroCreate,
 } from '@pynext-turbo/api-client';
 import { Button } from '@pynext-turbo/ui';
-import type { AxiosError } from 'axios';
 import { useApiClient } from '@pynext-turbo/api-client/provider';
 
 export function AddHeroForm() {
@@ -27,12 +26,8 @@ export function AddHeroForm() {
       setAge('');
       alert('Hero created successfully!');
     },
-    onError: (error: AxiosError) => {
-      const errorMsg =
-        (error.response?.data as any)?.detail ||
-        error.message ||
-        'An unknown error occurred';
-      alert(`Failed to create hero: ${errorMsg}`);
+    onError: () => {
+      alert('Failed to create hero. See console for details.');
     },
   });
 

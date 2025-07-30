@@ -4,252 +4,262 @@
  * HTTPValidationError
  */
 export type HttpValidationError = {
-    /**
-     * Detail
-     */
-    detail?: Array<ValidationError>;
+  /**
+   * Detail
+   */
+  detail?: Array<ValidationError>;
 };
 
 /**
  * HeroCreate
  */
 export type HeroCreate = {
-    /**
-     * Name
-     */
-    name: string;
-    /**
-     * Secret Name
-     */
-    secret_name: string;
-    /**
-     * Age
-     */
-    age?: number | null;
+  /**
+   * Name
+   */
+  name: string;
+  /**
+   * Secret Name
+   */
+  secret_name: string;
+  /**
+   * Age
+   */
+  age?: number | null;
 };
 
 /**
  * HeroRead
  */
 export type HeroRead = {
-    /**
-     * Name
-     */
-    name: string;
-    /**
-     * Secret Name
-     */
-    secret_name: string;
-    /**
-     * Age
-     */
-    age?: number | null;
-    /**
-     * Id
-     */
-    id: number;
+  /**
+   * Name
+   */
+  name: string;
+  /**
+   * Secret Name
+   */
+  secret_name: string;
+  /**
+   * Age
+   */
+  age?: number | null;
+  /**
+   * Id
+   */
+  id: number;
 };
 
 /**
  * HeroUpdate
  */
 export type HeroUpdate = {
-    /**
-     * Name
-     */
-    name?: string | null;
-    /**
-     * Secret Name
-     */
-    secret_name?: string | null;
-    /**
-     * Age
-     */
-    age?: number | null;
+  /**
+   * Name
+   */
+  name?: string | null;
+  /**
+   * Secret Name
+   */
+  secret_name?: string | null;
+  /**
+   * Age
+   */
+  age?: number | null;
 };
 
 /**
  * ValidationError
  */
 export type ValidationError = {
-    /**
-     * Location
-     */
-    loc: Array<string | number>;
-    /**
-     * Message
-     */
-    msg: string;
-    /**
-     * Error Type
-     */
-    type: string;
+  /**
+   * Location
+   */
+  loc: Array<string | number>;
+  /**
+   * Message
+   */
+  msg: string;
+  /**
+   * Error Type
+   */
+  type: string;
 };
 
 export type ReadHeroesHeroesGetData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Skip
-         */
-        skip?: number;
-        /**
-         * Limit
-         */
-        limit?: number;
-    };
-    url: '/heroes/';
+  body?: never;
+  path?: never;
+  query?: {
+    /**
+     * Skip
+     */
+    skip?: number;
+    /**
+     * Limit
+     */
+    limit?: number;
+  };
+  url: '/heroes/';
 };
 
 export type ReadHeroesHeroesGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
 };
 
-export type ReadHeroesHeroesGetError = ReadHeroesHeroesGetErrors[keyof ReadHeroesHeroesGetErrors];
+export type ReadHeroesHeroesGetError =
+  ReadHeroesHeroesGetErrors[keyof ReadHeroesHeroesGetErrors];
 
 export type ReadHeroesHeroesGetResponses = {
-    /**
-     * Response Read Heroes Heroes  Get
-     * Successful Response
-     */
-    200: Array<HeroRead>;
+  /**
+   * Response Read Heroes Heroes  Get
+   * Successful Response
+   */
+  200: Array<HeroRead>;
 };
 
-export type ReadHeroesHeroesGetResponse = ReadHeroesHeroesGetResponses[keyof ReadHeroesHeroesGetResponses];
+export type ReadHeroesHeroesGetResponse =
+  ReadHeroesHeroesGetResponses[keyof ReadHeroesHeroesGetResponses];
 
 export type CreateHeroHeroesPostData = {
-    body: HeroCreate;
-    path?: never;
-    query?: never;
-    url: '/heroes/';
+  body: HeroCreate;
+  path?: never;
+  query?: never;
+  url: '/heroes/';
 };
 
 export type CreateHeroHeroesPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
 };
 
-export type CreateHeroHeroesPostError = CreateHeroHeroesPostErrors[keyof CreateHeroHeroesPostErrors];
+export type CreateHeroHeroesPostError =
+  CreateHeroHeroesPostErrors[keyof CreateHeroHeroesPostErrors];
 
 export type CreateHeroHeroesPostResponses = {
-    /**
-     * Successful Response
-     */
-    200: HeroRead;
+  /**
+   * Successful Response
+   */
+  200: HeroRead;
 };
 
-export type CreateHeroHeroesPostResponse = CreateHeroHeroesPostResponses[keyof CreateHeroHeroesPostResponses];
+export type CreateHeroHeroesPostResponse =
+  CreateHeroHeroesPostResponses[keyof CreateHeroHeroesPostResponses];
 
 export type DeleteHeroHeroesHeroIdDeleteData = {
-    body?: never;
-    path: {
-        /**
-         * Hero Id
-         */
-        hero_id: number;
-    };
-    query?: never;
-    url: '/heroes/{hero_id}';
+  body?: never;
+  path: {
+    /**
+     * Hero Id
+     */
+    hero_id: number;
+  };
+  query?: never;
+  url: '/heroes/{hero_id}';
 };
 
 export type DeleteHeroHeroesHeroIdDeleteErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
 };
 
-export type DeleteHeroHeroesHeroIdDeleteError = DeleteHeroHeroesHeroIdDeleteErrors[keyof DeleteHeroHeroesHeroIdDeleteErrors];
+export type DeleteHeroHeroesHeroIdDeleteError =
+  DeleteHeroHeroesHeroIdDeleteErrors[keyof DeleteHeroHeroesHeroIdDeleteErrors];
 
 export type DeleteHeroHeroesHeroIdDeleteResponses = {
-    /**
-     * Successful Response
-     */
-    200: HeroRead;
+  /**
+   * Successful Response
+   */
+  204: void;
 };
 
-export type DeleteHeroHeroesHeroIdDeleteResponse = DeleteHeroHeroesHeroIdDeleteResponses[keyof DeleteHeroHeroesHeroIdDeleteResponses];
+export type DeleteHeroHeroesHeroIdDeleteResponse =
+  DeleteHeroHeroesHeroIdDeleteResponses[keyof DeleteHeroHeroesHeroIdDeleteResponses];
 
 export type ReadHeroHeroesHeroIdGetData = {
-    body?: never;
-    path: {
-        /**
-         * Hero Id
-         */
-        hero_id: number;
-    };
-    query?: never;
-    url: '/heroes/{hero_id}';
+  body?: never;
+  path: {
+    /**
+     * Hero Id
+     */
+    hero_id: number;
+  };
+  query?: never;
+  url: '/heroes/{hero_id}';
 };
 
 export type ReadHeroHeroesHeroIdGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
 };
 
-export type ReadHeroHeroesHeroIdGetError = ReadHeroHeroesHeroIdGetErrors[keyof ReadHeroHeroesHeroIdGetErrors];
+export type ReadHeroHeroesHeroIdGetError =
+  ReadHeroHeroesHeroIdGetErrors[keyof ReadHeroHeroesHeroIdGetErrors];
 
 export type ReadHeroHeroesHeroIdGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: HeroRead;
+  /**
+   * Successful Response
+   */
+  200: HeroRead;
 };
 
-export type ReadHeroHeroesHeroIdGetResponse = ReadHeroHeroesHeroIdGetResponses[keyof ReadHeroHeroesHeroIdGetResponses];
+export type ReadHeroHeroesHeroIdGetResponse =
+  ReadHeroHeroesHeroIdGetResponses[keyof ReadHeroHeroesHeroIdGetResponses];
 
 export type UpdateHeroHeroesHeroIdPatchData = {
-    body: HeroUpdate;
-    path: {
-        /**
-         * Hero Id
-         */
-        hero_id: number;
-    };
-    query?: never;
-    url: '/heroes/{hero_id}';
+  body: HeroUpdate;
+  path: {
+    /**
+     * Hero Id
+     */
+    hero_id: number;
+  };
+  query?: never;
+  url: '/heroes/{hero_id}';
 };
 
 export type UpdateHeroHeroesHeroIdPatchErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
 };
 
-export type UpdateHeroHeroesHeroIdPatchError = UpdateHeroHeroesHeroIdPatchErrors[keyof UpdateHeroHeroesHeroIdPatchErrors];
+export type UpdateHeroHeroesHeroIdPatchError =
+  UpdateHeroHeroesHeroIdPatchErrors[keyof UpdateHeroHeroesHeroIdPatchErrors];
 
 export type UpdateHeroHeroesHeroIdPatchResponses = {
-    /**
-     * Successful Response
-     */
-    200: HeroRead;
+  /**
+   * Successful Response
+   */
+  200: HeroRead;
 };
 
-export type UpdateHeroHeroesHeroIdPatchResponse = UpdateHeroHeroesHeroIdPatchResponses[keyof UpdateHeroHeroesHeroIdPatchResponses];
+export type UpdateHeroHeroesHeroIdPatchResponse =
+  UpdateHeroHeroesHeroIdPatchResponses[keyof UpdateHeroHeroesHeroIdPatchResponses];
 
 export type ReadRootGetData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/';
+  body?: never;
+  path?: never;
+  query?: never;
+  url: '/';
 };
 
 export type ReadRootGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: unknown;
+  /**
+   * Successful Response
+   */
+  200: unknown;
 };
 
 export type ClientOptions = {
-    baseURL: `${string}://apps` | (string & {});
+  baseURL: `${string}://apps` | (string & {});
 };

@@ -6,7 +6,6 @@ import {
   deleteHeroHeroesHeroIdDelete,
 } from '@pynext-turbo/api-client';
 import { Button } from '@pynext-turbo/ui';
-import type { AxiosError } from 'axios';
 import { useApiClient } from '@pynext-turbo/api-client/provider';
 
 type HeroCardProps = {
@@ -27,13 +26,9 @@ export function HeroCard({ hero }: HeroCardProps) {
       queryClient.setQueryData(['heroes'], optimisticHeroes);
       return { previousHeroes };
     },
-    onError: (error: AxiosError, heroId, context) => {
+    onError: (_error, _heroId, context) => {
       queryClient.setQueryData(['heroes'], context?.previousHeroes);
-      const errorMsg =
-        (error.response?.data as any)?.detail ||
-        error.message ||
-        'An unknown error occurred';
-      alert(`Failed to delete hero: ${errorMsg}`);
+      alert('Failed to delete hero. See console for details.');
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['heroes'] });

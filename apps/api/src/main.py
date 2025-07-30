@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, HTTPException, Query, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select
 
@@ -52,7 +52,9 @@ def update_hero(
     if not db_hero:
         raise HTTPException(status_code=404, detail="Hero not found")
 
-    db_hero.sqlmodel_update(hero_update, exclude_unset=True)
+    hero_data = hero_update.model_dump(exclude_unset=True)
+    for key, value in hero_data.items():
+        setattr(db_hero, key, value)
 
     session.add(db_hero)
     session.commit()
@@ -60,14 +62,14 @@ def update_hero(
     return db_hero
 
 
-@app.delete("/heroes/{hero_id}", response_model=HeroRead)
+@app.delete("/heroes/{hero_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_hero(hero_id: int, session: Session = Depends(get_session)):
     hero = session.get(Hero, hero_id)
     if not hero:
         raise HTTPException(status_code=404, detail="Hero not found")
     session.delete(hero)
     session.commit()
-    return hero
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @app.get("/")

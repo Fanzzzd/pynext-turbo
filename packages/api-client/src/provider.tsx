@@ -1,11 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useMemo } from 'react';
-import {
-  createClient,
-  type Client,
-  createConfig,
-} from './requests/client';
+import { createClient, type Client, createConfig } from './requests/client';
 
 const ApiClientContext = createContext<Client | null>(null);
 
@@ -30,9 +26,9 @@ export const ApiProvider = ({
         createConfig({
           baseURL: baseURL,
           throwOnError: true,
-        }),
+        })
       ),
-    [baseURL],
+    [baseURL]
   );
 
   return (
