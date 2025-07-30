@@ -22,3 +22,6 @@
 # Lockfiles
 pnpm-lock.yaml
 uv.lock
+
+# Generated files
+/packages/api-client/src/requests/
