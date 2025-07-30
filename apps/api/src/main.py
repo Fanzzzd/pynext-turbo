@@ -52,9 +52,7 @@ def update_hero(
     if not db_hero:
         raise HTTPException(status_code=404, detail="Hero not found")
 
-    hero_data = hero_update.model_dump(exclude_unset=True)
-    for key, value in hero_data.items():
-        setattr(db_hero, key, value)
+    db_hero.sqlmodel_update(hero_update, exclude_unset=True)
 
     session.add(db_hero)
     session.commit()
