@@ -1,5 +1,11 @@
+'use client';
+
+import Link from 'next/link';
 import { AddHeroForm } from './components/AddHeroForm';
+import { Header } from '@/components/Header';
 import { HeroList } from './components/HeroList';
+import { useAuth } from '@/lib/auth';
+import { Button } from '@pynext-turbo/ui';
 
 const Feature = ({
   icon,
@@ -18,23 +24,39 @@ const Feature = ({
 );
 
 export default function Home() {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p>Loading session...</p>
+      </div>
+    );
+  }
+
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="mx-auto max-w-4xl">
-        <header className="mb-12 text-center">
-          <h1 className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-4xl font-bold text-transparent">
-            Pynext-Turbo Heroes
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            A demonstration of type-safe full-stack development with Next.js and
-            FastAPI
-          </p>
-        </header>
+        <Header />
 
-        <div className="grid gap-8 md:grid-cols-2">
-          <HeroList />
-          <AddHeroForm />
-        </div>
+        {isAuthenticated ? (
+          <div className="grid gap-8 md:grid-cols-2">
+            <HeroList />
+            <AddHeroForm />
+          </div>
+        ) : (
+          <div className="rounded-lg bg-white p-8 text-center shadow-lg dark:bg-gray-800">
+            <h2 className="mb-4 text-2xl font-semibold text-gray-800 dark:text-gray-200">
+              Welcome!
+            </h2>
+            <p className="mb-6 text-gray-600 dark:text-gray-400">
+              Please sign in to manage your heroes.
+            </p>
+            <Button asChild size="lg">
+              <Link href="/auth">Go to Sign In</Link>
+            </Button>
+          </div>
+        )}
 
         <div className="mt-12 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 p-8 dark:from-gray-800 dark:to-gray-900">
           <h2 className="mb-6 text-center text-2xl font-semibold text-gray-800 dark:text-gray-200">

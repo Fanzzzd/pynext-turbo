@@ -143,3 +143,4 @@ coverage/
 
 # Generated files
 apps/api/openapi.json
+*.bak

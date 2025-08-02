@@ -1,5 +1,6 @@
 #!/bin/bash
 # Pynext-Turbo Development Environment Initialization Script
+set -euo pipefail
 
 # This script must be run from the project root
 if [ ! -f "pnpm-workspace.yaml" ]; then

@@ -1,6 +1,6 @@
 import eslintConfig from '@pynext-turbo/eslint-config-custom';
 
-export default [
+const config = [
   ...eslintConfig,
   {
     rules: {
@@ -8,3 +8,5 @@ export default [
     },
   },
 ];
+
+export default config;

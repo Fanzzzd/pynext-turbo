@@ -11,7 +11,7 @@
     "db:migrate": "cd apps/api && uv run -- python -m alembic upgrade head",
     "dev": "cross-env NEXT_PUBLIC_API_URL=http://localhost:8000 turbo dev",
     "dev:docker": "docker-compose up --build",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\" && (cd apps/api && uv run ruff format src)",
+    "fmt": "prettier --write \"**/*.{ts,tsx,md}\" && (cd apps/api && uv run ruff format src)",
     "generate:client": "pnpm --filter @pynext-turbo/api schema && openapi-ts --input apps/api/openapi.json --output packages/api-client/src/requests --plugins @hey-api/typescript @hey-api/sdk @hey-api/client-axios",
     "lint": "turbo lint",
     "postinstall": "cd apps/api && uv sync",

@@ -8,10 +8,13 @@ dependencies = [
     "uvicorn[standard]",
     "sqlmodel",
     "alembic",
-    "psycopg2-binary",
+    "asyncpg",
     "python-dotenv",
-    "pydantic-settings>=2.10.1",
-    "gunicorn>=23.0.0",
+    "pydantic-settings",
+    "gunicorn",
+    "fastapi-users[sqlalchemy]",
+    "fastapi-users-db-sqlmodel",
+    "passlib[argon2]",
 ]
 
 [project.optional-dependencies]

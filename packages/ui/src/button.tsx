@@ -15,28 +15,47 @@ const sizes = {
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: keyof typeof variants;
   size?: keyof typeof sizes;
+  asChild?: boolean;
 };
 
-export function Button({
-  children,
-  className,
-  variant = 'primary',
-  size = 'md',
-  ...props
-}: ButtonProps) {
-  return (
-    <button
-      className={[
-        'rounded font-medium transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50',
-        variants[variant],
-        sizes[size],
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      className,
+      variant = 'primary',
+      size = 'md',
+      asChild = false,
+      ...props
+    },
+    ref
+  ) => {
+    const buttonClasses = [
+      'inline-flex items-center justify-center rounded font-medium transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50',
+      variants[variant],
+      sizes[size],
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ');
+
+    if (asChild && React.isValidElement(children)) {
+      const childProps = children.props as React.HTMLAttributes<HTMLElement> & {
+        className?: string;
+      };
+      return React.cloneElement(children as React.ReactElement<any>, {
+        ...props,
+        ref: ref as any,
+        className: `${buttonClasses} ${childProps.className || ''}`.trim(),
+      });
+    }
+
+    return (
+      <button className={buttonClasses} ref={ref} {...props}>
+        {children}
+      </button>
+    );
+  }
+);
+
+Button.displayName = 'Button';
