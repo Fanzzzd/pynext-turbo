@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { AddHeroForm } from './components/AddHeroForm';
-import { Header } from '@/components/Header';
-import { HeroList } from './components/HeroList';
+import { AddHeroForm } from '@/components/heroes/AddHeroForm';
+import { Header } from '@/components/layout/Header';
+import { HeroList } from '@/components/heroes/HeroList';
 import { useAuth } from '@/lib/auth';
 import { Button } from '@pynext-turbo/ui';
 
