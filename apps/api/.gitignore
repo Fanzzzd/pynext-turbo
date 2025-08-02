@@ -2,4 +2,28 @@
 .env
 .env*.local
 
-.ruff_cache/.
+# Python cache and tools
+.ruff_cache/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# FastAPI specific
+*.db
+*.sqlite3
+
+# Development files
+.pytest_cache/
+.coverage
+
+# Virtual environment (if created locally)
+.venv/
+venv/
+
+# Database files
+*.sql.backup
+*.dump
+
+# IDE files
+.vscode/
+.idea/
